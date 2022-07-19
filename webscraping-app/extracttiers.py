@@ -13,9 +13,7 @@ print(URL)
 driver = get_page(URL)
 
 soup = BeautifulSoup(driver.page_source, 'html.parser')
-for td in soup.find_all('td', class_='hauptlink'):
-    link = td.find('a', title=True)
-    if (link):
-        print(link['href'])
-        print(link['title'])
-        print(link.text)
+for link in soup.select('td.hauptlink td a[title~=Brasileiro]'):
+    print(link['href'])
+    print(link['title'])
+    print(link.text)
