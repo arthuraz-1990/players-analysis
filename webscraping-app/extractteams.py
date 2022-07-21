@@ -11,5 +11,5 @@ def get_teams_by_competition(competitioninfo: ItemInfo) -> List[ItemInfo]:
     for link in soup.select('#yw1 td.hauptlink a[title]'):
         items.append(ItemInfo(link['href'], link['title'], link.text))
 
-    print(f'{len(items)} times para o campeonato {competitioninfo.title}.')
+    print(f'{len(items)} times para o campeonato {competitioninfo.title}.\n')
     return items
