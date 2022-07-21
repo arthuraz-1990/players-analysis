@@ -28,7 +28,10 @@ def get_players_by_team(teaminfo: ItemInfo) -> List[PlayerInfo]:
                 case 3:
                     player_info.age = player_col.text
                 case 4:
-                    player_info.nationality = player_col.find('img', {'class': 'flaggenrahmen'})['title']
+                    flags = player_col.findAll('img', {'class': 'flaggenrahmen'})
+                    player_info.nationality = ', '.join([flag['title'] for flag in flags])
+                    if (len(flags) > 1):
+                        print(f'{player_info.nationality}')
                 case 5:
                     player_info.height = player_col.text
                 case 6:
