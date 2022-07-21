@@ -15,4 +15,4 @@ def get_page_source_new(url: str) -> BeautifulSoup:
     return BeautifulSoup(html, 'html.parser')
 
 
-BASE_PAGE_URL = 'https://www.transfermarkt.com'
+BASE_PAGE_URL = 'https://www.transfermarkt.com.br'
