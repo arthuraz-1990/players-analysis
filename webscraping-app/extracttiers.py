@@ -1,19 +1,14 @@
-from lib2to3.pgen2 import driver
-from bs4 import BeautifulSoup
-from utilfns import get_page
-import pandas as pd
+from typing import List
+from utilfns import get_page_source_new
+from customtypes import ItemInfo
 
+def get_main_competitions_by_country(countryid = 26) -> List[ItemInfo]:
+    print(f'Buscando competições país {countryid}...')
+    baseurl = f'/wettbewerbe/national/wettbewerbe/{countryid}'
+    soup = get_page_source_new(baseurl)
+    items = []
+    for link in soup.select('td.hauptlink td a[title~=Brasileiro]'):
+        items.append(ItemInfo(link['href'], link['title'], link.text))
 
-baseUrl = 'https://www.transfermarkt.com/wettbewerbe/national/wettbewerbe'
-baseCountryId = 26
-
-URL = f'{baseUrl}/{baseCountryId}'
-print(URL)
-
-driver = get_page(URL)
-
-soup = BeautifulSoup(driver.page_source, 'html.parser')
-for link in soup.select('td.hauptlink td a[title~=Brasileiro]'):
-    print(link['href'])
-    print(link['title'])
-    print(link.text)
+    print(f'{len(items)} campeonatos para o país {countryid}.')
+    return items
