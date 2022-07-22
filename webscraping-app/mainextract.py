@@ -1,6 +1,7 @@
 from extracttiers import get_main_competitions_by_country
 from extractteams import get_teams_by_competition
 from extractplayers import get_players_by_team
+from dboperations import save_players_list, truncate_table
 
 from datetime import datetime
 
@@ -22,6 +23,8 @@ def main():
 
     print(f'Total de jogadores encontrados: {len(players)}\n')
     # print(players)
+    truncate_table()
+    save_players_list(players)
     
 
 
