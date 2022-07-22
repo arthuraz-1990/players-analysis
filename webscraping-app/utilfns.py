@@ -55,8 +55,8 @@ def convert_player_number(number_str: str) -> int | None:
     else:
         return None
 
-def str_or_null_value(str_value: str) -> str | None:
-    if str_value is None or str_value.strip() == '-':
+def str_or_null_value(str_value: str) -> str | None:    
+    if str_value is None or str_value.strip() == '-' or len(str_value.strip()) == 0:
         return None
     else:
         return str_value
