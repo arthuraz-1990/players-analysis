@@ -1,8 +1,13 @@
+from typing import List
 from bs4 import BeautifulSoup
 from urllib.request import urlopen, Request
 
 import re
 import datetime
+
+from functools import reduce
+import operator
+import multiprocessing
 
 def get_page_source_new(url: str) -> BeautifulSoup:
     url = f'{BASE_PAGE_URL}{url}'
@@ -60,3 +65,9 @@ def str_or_null_value(str_value: str) -> str | None:
         return None
     else:
         return str_value
+
+def multi_process_list(func, param_list: List):
+    """ Executa uma função com uma lista parametrizada utilizando processamento paralelo """
+    get_list = multiprocessing.Pool()
+    output_list = get_list.map(func, param_list)
+    return reduce(operator.concat, output_list)
