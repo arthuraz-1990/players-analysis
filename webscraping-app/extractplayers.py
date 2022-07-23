@@ -2,7 +2,10 @@ from typing import List
 from utilfns import get_page_source_new
 from customtypes import ItemInfo, PlayerInfo
 
+import re
+
 def get_players_by_team(teaminfo: ItemInfo) -> List[PlayerInfo]:
+    """ Função para extrair as informações dos jogadores de um time """
     print(f'Buscando jogadores do time {teaminfo.title}...')
     # Pegando informações mais detalhadas do jogador...
     baseurl = f'{teaminfo.href}/plus/1'
@@ -16,6 +19,8 @@ def get_players_by_team(teaminfo: ItemInfo) -> List[PlayerInfo]:
         items.append(player_info)
         cols = player_row.findAll('td', recursive=False)
         i = 1
+
+        loaned_re = re.compile(r'Emprestado(.*)')
         # Iterando em cada coluna em cada linha
         for player_col in cols:
             match i:
@@ -25,6 +30,7 @@ def get_players_by_team(teaminfo: ItemInfo) -> List[PlayerInfo]:
                 case 2:
                     player_info.name = player_col.find('td', {'class': 'hauptlink'}).find('a').text.strip().replace('\n', '')
                     player_info.position = player_col.find('td', {'class': None, 'rowspan': None}).text.strip().replace('\n', '')
+                    player_info.loaned = player_col.find('a', title=loaned_re) is not None
                 case 3:
                     player_info.age = player_col.text
                 case 4:

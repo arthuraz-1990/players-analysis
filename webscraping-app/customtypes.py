@@ -9,7 +9,7 @@ class ItemInfo:
 
 class PlayerInfo:
     def __init__(self, name='', position='', number='-', age='', team='', nationality='', height='', 
-        foot='', joined='', signed_from='', contract='', market_value='') -> None:
+        foot='', joined='', signed_from='', contract='', market_value='', loaned=False) -> None:
         self.name = name
         self.position = position
         self.number = number
@@ -22,6 +22,7 @@ class PlayerInfo:
         self.signed_from = signed_from
         self.contract = contract
         self.market_value = market_value
+        self.loaned = loaned
 
     def __str__(self) -> str:
         return f'Nome: {self.name} / Time: {self.team} / Posição: {self.position}'
