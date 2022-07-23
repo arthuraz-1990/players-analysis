@@ -44,7 +44,7 @@ def save_players_list(player_list: List[PlayerInfo]) -> None:
             name, position, number, team,
             nationality, height, foot,
             joined, signed_from, contract, market_value, 
-            birth_date
+            birth_date, loaned
         ) 
         VALUES %s;
     """, ((
@@ -57,7 +57,7 @@ def save_players_list(player_list: List[PlayerInfo]) -> None:
         str_or_null_value(player.signed_from), 
         convert_date(player.contract), 
         convert_monetary_value(player.market_value),
-        convert_date(player.age)
+        convert_date(player.age), player.loaned
      ) for player in player_list), page_size=10000)
 
     db_connection.commit()
